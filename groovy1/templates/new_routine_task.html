@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<head>
+    
+    ><title>Yeni Rutin Görev</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='new_routine_task.css') }}">
+    <style>
+    
+    </style>
+    
+</head>
+
+<body>
+{% extends "base2.html"%}
+
+{%block content%}
+
+
+
+<div class="main_section fade-in">
+    
+    <div class="main_content_box">
+               
+        
+        <div class="main_content_type1_container">
+            
+        
+    
+            <div class="main_content_type1">
+                <div class="tasks_ahead_text">
+                
+                    <p style="font-size: 22px;">Yeni Rutin Görev </p>
+                    
+                    <form id="createTaskForm" action="{{ url_for('create_task') }}" method="POST">
+                        <label for="taskName">Görev Adı:</label>
+                        <input type="text" id="taskName" name="task_name" required><br>
+                        
+                        <label for="period">Peryot (Aylık - Haftalık):</label>
+                        <select id="period" name="period" required>
+                            <option value="monthly">Monthly</option>
+                            <option value="weekly">Weekly</option>
+                        </select><br>
+                        
+                        <label for="deadline">Son Tarih: </label>
+                        <input type="date" id="deadline" name="deadline_date"><br>
+                        
+                        <button class="button" type="submit">Kaydet</button>
+                    </form>
+                    
+                </div>
+            </div>
+    
+        </div>
+    
+    
+    </div>
+    
+</div>
+
+
+{%endblock%}
+
+
+
+</body>
+</html>

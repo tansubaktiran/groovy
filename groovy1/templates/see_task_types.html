@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tanımlanmış Görev Akışları</title>
+
+    <style>
+        .task_types {
+          width: auto;
+          height: auto;
+          background-color: none;
+          color: black;
+          margin: 25px;
+        }
+        
+        
+        </style>
+
+</head>
+
+
+
+<body>
+    
+    {% extends "base.html" %}
+    
+    {% for message in get_flashed_messages() %}
+    <div class="alert alert-success" role="alert">{{message}}</div>
+    {% endfor %}
+    
+    {% block content %}
+    <br>
+    <div class="task_types">
+    
+    {% if current_user.is_authenticated %}
+        <h3>Tanımlanmış Görev Akışları</h3>
+    
+        {% for table in task_types_process_steps %}
+        
+          {{ table|safe }}
+        {% endfor %}
+        
+    {% endif %}
+    
+    </div>
+
+
+    {% endblock %}
+
+</body>
+</html>
+
+
+
+

@@ -1,0 +1,147 @@
+body{
+    margin: 0px;
+}
+
+
+
+
+@media screen and (max-width: 768px) {
+
+.navbar_mini{
+    display: flex;
+    
+    background-color: #ededed;
+    height: 100px;
+    align-items: center;
+    justify-content:center;
+    width: 100vw;
+
+    }
+
+    .navbar_mini_buttons{
+        display: flex;
+        background-color: rgba(255, 217, 0, 0);
+        width: 100vw;
+        height: 60px;
+        justify-content:center;
+        align-items: center;
+    }
+
+    .navbar{
+    display: none;
+    background-color: #ededed;
+    height: auto;
+    align-items: center;
+    justify-content:space-evenly;
+    width: 80vw;
+
+}
+.navbar_image{
+    height: 90px; /* Adjust height as needed */
+    width: auto; /* Maintain aspect ratio */
+
+}
+.navbar_links{
+    display: flex;
+    width: 350px;
+    justify-content: flex-end;
+    padding: 0px 35px 0px 0px;
+}
+.button {
+    background-color: #e85d04;
+    border: none;
+    color: rgb(255, 255, 255);
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    border-radius: 8px;
+    height: 30px;
+    line-height: auto; /* Center the text vertically */
+    margin: 0px 20px 0px 0px;
+    width: 90px;}
+
+    .button_mini {
+    background-color: #0077b6;
+    border: none;
+    color: rgb(255, 255, 255);
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 10px;
+    border-radius: 5px;
+    height: 40px;
+    line-height: auto; /* Center the text vertically */
+    margin: 0px 4px 0px 4px; 
+    padding: 1px 1px;
+    width: 10.5vw;}
+
+    .login_navbar_mini {
+    display: flex;
+    background-color: #ededed;
+    height: 100px;
+    align-items: center;
+    justify-content:flex-end;
+    width: auto;
+}
+
+}
+
+
+
+@media screen and (min-width: 769px) {
+
+    .navbar_mini{
+    display: none;
+    background-color: #ededed;
+    height: 100px;
+    align-items: center;
+    justify-content:space-between;
+    width: auto;
+
+}
+
+
+    .navbar{
+    display: flex;
+    /* position: fixed; */
+    background-color: #ededed;
+    height: auto;
+    align-items: center;
+    justify-content:space-between;
+    width: auto;
+
+}
+.navbar_image{
+    height: 30px; /* Adjust height as needed */
+    width: auto; /* Maintain aspect ratio */
+    padding: 0 15px;
+
+}
+.navbar_links{
+    display: flex;
+    width: 350px;
+    justify-content: flex-end;
+    padding: 0px 35px 0px 0px;
+}
+.button {
+    background-color: #0077b6;
+    border: none;
+    color: rgb(255, 255, 255);
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    border-radius: 8px;
+    height: 60px;
+    line-height: auto; /* Center the text vertically */
+    margin: 0px 20px 0px 0px;
+    width: 90px;}
+
+    .login_navbar_mini {
+    display: none;
+    
+}
+
+
+}

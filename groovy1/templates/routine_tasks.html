@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='routine_tasks.css') }}">
+    <title>Rutin Görevler</title>
+    <style>
+        /* Add any custom styles here */
+    </style>
+</head>
+<body>
+    {% extends "base2.html" %}
+
+    {% block content %}
+    <div class="main_section">
+        <div class="main_content_box">
+            <div class="main_content_type1_container">
+                <div class="main_content_type1">
+                    <div class="tasks_ahead_text">
+                        
+                        <p style="font-size: 22px;">Rutin Görevler</p>
+                        <table class="table-routine">
+                            <thead>
+                                <tr>
+                                    <th>Görev</th>
+                                    <th>Durum</th>
+                                    <th>Son Tarih</th>
+                                    <th>-</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tasks-list">
+                                {% for task in all_routine_tasks %}
+                                <tr>
+                                    <td>{{ task.task_name_db }}</td>
+                                    <td>{{ task.task_status_db }}</td>
+                                    <td>{{ task.date_due_db }}</td>
+                                    <td>
+                                        <button class="button_mini complete-task-btn" data-task-id="{{ task.id }}">Tamamlandı</button>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add event listener to all complete task buttons
+            attachEventListeners();
+
+            function attachEventListeners() {
+                document.querySelectorAll('.complete-task-btn').forEach(button => {
+                    button.addEventListener('click', function() {
+                        const taskId = this.getAttribute('data-task-id');
+                        // Show confirmation dialog
+                        const confirmed = confirm('Tamamlandı olarak işaretlemek istediğinizden emin misiniz?');
+                        if (confirmed) {
+                            completeTask(taskId);
+                        }
+                    });
+                });
+            }
+
+            function completeTask(taskId) {
+                // Send Ajax request to Flask backend
+                fetch(`/complete-task/${taskId}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.message === 'Task completed successfully') {
+                        // Update the tasks list with the new data
+                        const tasksList = document.getElementById('tasks-list');
+                        tasksList.innerHTML = '';
+                        data.tasks.forEach(task => {
+                            const row = document.createElement('tr');
+                            row.innerHTML = `
+                                <td>${task.task_name_db}</td>
+                                <td>${task.task_status_db}</td>
+                                <td>${task.date_due_db}</td>
+                                <td><button class="button_mini complete-task-btn" data-task-id="${task.id}">Tamamlandı</button></td>
+                            `;
+                            tasksList.appendChild(row);
+                        });
+                        // Re-attach event listeners to the new buttons
+                        attachEventListeners();
+                    } else {
+                        console.error('Error completing task:', data.message);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+            }
+            function formatDate(dateString) {
+            const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
+            return new Date(dateString).toLocaleDateString('tr-TR', options);
+            }
+        
+        
+        });
+    </script>
+    {% endblock %}
+</body>
+</html>

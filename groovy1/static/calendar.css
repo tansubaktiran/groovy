@@ -1,0 +1,125 @@
+
+    body, html {
+      padding: 0px;
+      margin: 0px;
+    }
+    .calendar_main_pc{
+        display: flex;
+        /*background-image: url('{{ url_for('static', filename='sea_background.jpg') }}'); */
+        background-image: url('/static/sea_background.jpg');
+        background-size: cover;
+        background-position: right;
+        height: 90vh;
+      }
+    .container {
+      height: calc(100% - 50px);
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .calendar {
+        display: flex;
+        height: 60vh;
+        width: 1200px;
+        border: 1px solid rgb(152, 151, 151);
+        border-radius: 5px;
+        background-color: white;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 12pt;
+        padding: 20px;
+      }
+    
+    .calendar-switch-buttons {
+      padding: 100px 10px 20px 10px;
+    }
+    .calendar_button {
+      background-color: #e52838;
+      border: none;
+      color: white;
+      padding: 10px 20px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 14px;
+      border-radius: 4px;
+      height: 30px;
+      line-height: 10px;
+    }
+    #userControls label {
+      font-family: Helvetica, sans-serif;
+      font-size: 16px;
+    }
+    #userControls input[type="checkbox"] {
+      transform: scale(1.7);
+      margin-right: 15px;
+      margin-left: 15px;
+    }
+    
+    #confirmationDialog {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      background-color: white;
+      padding: 20px;
+      border: 1px solid #ccc;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    #confirmationDialog button {
+      margin: 10px 5px;
+    }
+  
+    @media screen and (max-width: 768px) {
+
+      .calendar_buttons_container{
+
+        height: 85vh;        
+      }
+    
+      .calendar {
+        display: flex;
+        height: 80vh; /* 700px*/
+        width: 350px;
+        border: 1px solid rgb(152, 151, 151);
+        border-radius: 5px;
+        background-color: white;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 6pt;
+        padding: 20px;
+      }
+      .calendar-switch-buttons {
+        padding: 10px 10px 10px 10px;
+        margin-bottom: -10px;
+      }
+      .calendar_button {
+        background-color: #e52838;
+        border: none;
+        color: white;
+        padding: 5px 10px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 10px;
+        border-radius: 4px;
+        height: 20px;
+        line-height: 0px;
+        margin: 5px 0px;
+      }
+    
+      #userControls label {
+        font-family: Helvetica, sans-serif;
+        font-size: 12px;
+        color: white;
+      }
+      #userControls input[type="checkbox"] {
+        transform: scale(1.2);
+        margin-right: 10px;
+        margin-left: 10px;
+      }
+    
+    }

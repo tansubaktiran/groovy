@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='navbar_taskify.css') }}">
+<style>
+
+</style>
+    
+</head>
+
+<body>
+    <div class="navbar_mini">
+        <div class="navbar_mini_buttons">
+        {% if current_user.is_authenticated %}
+            
+            <a href="{{ url_for('index2') }}">
+                <button class="button_mini">Ana Sayfa</button>
+            </a>
+        
+            <a href="{{ url_for('see_and_modify_routine_tasks') }}">
+                <button class="button_mini">Rutin Görevler</button>
+            </a>
+            
+            <a href="{{ url_for('create_task') }}">
+                <button class="button_mini">Rutin Görev</button>
+            </a>
+
+            <a href="{{ url_for('see_my_tasks_briefly') }}">
+                <button class="button_mini" style="background-color: #ffc107;">Özet Görevler</button>
+            </a>
+
+            <a href="{{ url_for('new_task_assignment') }}">
+                <button class="button_mini" style="background-color: #036f23;">Yeni Görev</button>
+            </a>
+            <a href="{{ url_for('calendar') }}">
+                <button class="button_mini" style="background-color: #fd8709;">Takvim</button>
+            </a>
+            
+            <a href="{{ url_for('logout') }}">
+                <button class="button_mini" style="background-color: red;">Çıkış</button>
+            </a>
+            
+            {% else %}
+            
+        
+            
+                <div class="login_navbar_mini" style="display: flex; justify-content: flex-end;">
+                    <a href="{{ url_for('login') }}">
+                        <button class="button_mini" style="background-color: #036f23;">Giriş</button>
+                    </a>
+                </div>
+    
+            {% endif %}
+        </div>
+    </div>
+    
+         
+
+    <div class="navbar">
+        <img src="{{ url_for('static', filename='taskify_logo_4.png') }}" alt="Taskify Logo" class="navbar_image">
+    
+        <div class="navbar_links"> 
+            {% if current_user.is_authenticated %}
+            
+            
+
+            <a href="{{ url_for('index2') }}">
+                <button class="button">Ana Sayfa</button>
+            </a>
+            
+            <a href="{{ url_for('index') }}">
+                <button class="button">Gelişmiş Seçenekler</button>
+            </a>
+
+            <a href="{{ url_for('see_and_modify_routine_tasks') }}">
+                <button class="button" style="background-color: #1999d0;">Rutin Görevler</button>
+            </a>
+            
+            <a href="{{ url_for('create_task') }}">
+                <button class="button" style="background-color: #1999d0;">Yeni Rutin Görev</button>
+            </a>
+
+            
+
+            <a href="{{ url_for('see_my_tasks_briefly') }}">
+                <button class="button" style="background-color: #ffc107;">Görevler</button>
+            </a>
+
+            <a href="{{ url_for('new_task_assignment') }}">
+                <button class="button" style="background-color: #036f23;">Yeni Görev</button>
+            </a>
+            
+            <a href="{{ url_for('calendar') }}">
+                <button class="button" style="background-color: #fd8709;">Takvim</button>
+            </a>
+
+            <a href="{{ url_for('logout') }}">
+                <button class="button" style="background-color: red;">Çıkış</button>
+            </a>
+            
+            {% else%}
+            
+
+            <a href="{{ url_for('login') }}">
+                <button class="button" style="background-color: #036f23;">Giriş</button>
+            </a>
+            {% endif %}
+        
+        </div>
+    
+
+        
+    </div>
+
+</body>
+</html>

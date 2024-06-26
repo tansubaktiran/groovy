@@ -1,0 +1,177 @@
+<head>
+    <style>
+
+@media screen and (max-width: 768px) {
+    #mydiv {
+        padding:5%;
+        display: none;
+            }
+
+    #mydiv2 {
+        padding:5%;
+
+            }
+    .larger_table {
+        display: none;
+    }
+    .fit_table {
+        padding: 1%;
+    }
+
+    table tr:first-child tr {
+    border-top: 20px solid red; /* You can adjust the border width and color */
+    /* Add any other styling you want for the top row here */}
+
+    .calendar_events {
+        background-color: orange;
+        margin: 10px;
+        width: 80vw;
+        font-size: 8pt;
+    }
+    table {
+    margin: 0px 0px 0px 10px;
+    font-size: 8pt;
+    width: 80vw;}
+    
+    .task_conversation{
+            width: 80vw;
+        }
+    
+        
+    .info_table {
+    margin: 10px;
+    justify-content: center;
+
+}
+
+}
+
+
+@media screen and (min-width: 769px) {
+
+.calendar_events {
+    background-color: orange;
+    margin: 10px;
+    width: 80vw;
+}
+.task_conversation {
+    margin: 0px 10px 0px 10px;
+
+}
+.info_table {
+    margin: 10px;
+
+}
+
+}
+
+
+
+</style>
+</head>
+{% extends "base2.html"%}
+
+
+{%block content%}
+
+
+
+<span style="margin: 10px;"> Görev Detayları</span>
+
+<div class="info_table">
+<table class="table table-striped" style="width: 80vw; ">
+        <tr>
+            <th>Görev ID </th>
+        </tr>    
+        <tr>
+            <td>{{ task_to_show.id}}</td>
+        </tr>
+        
+        <tr>
+            <th>Görev </th>
+            <th>Görev Akış Türü </th>
+        </tr>
+        
+        <tr>
+            <td>{{ task_to_show.task_name_db }}</td>
+            <td>{{ task_to_show.task_type_name_db }}</td>
+        </tr>
+        <tr>
+            <th>Görevi Oluşturan</th>
+            <th>Görev Sahibi</th>
+        </tr>
+        
+        <tr>
+            <td>{{ task_to_show.process_owner_email_db }}</td>
+            <td>{{ task_to_show.subordinate_email_db }}</td>
+        </tr>    
+            
+        <tr>
+            <th>Durum</th>
+            <th>Aciliyet</th>
+        </tr>
+
+        <tr>
+            <td>{{ task_to_show.task_status_db }}</td>
+            <td>{{ task_to_show.urgent_or_not_db }}</td>
+        </tr>
+
+        <tr>
+            <th>Onay Talebi</th>
+        </tr>
+        
+        <tr>
+            <td>{{ task_to_show.acceptance_required_or_not_db }}</td>
+        </tr>
+
+</table>
+
+
+<div class="calendar_events">
+
+    <p style="font-weight:bold;">Takvime Kayıtlı Tarihler</p>
+        {% for event in calendar_events_for_this_task %}
+            {{ event.date_time_db }} <br>
+        {% endfor %}
+
+</div>
+
+
+
+<div class="task_conversation">
+    <span style="margin: 0px 0px 0px 10px;">Görev Hakkında İletişim </span>
+
+    <table class="table table-striped">
+            <tr>
+                <th>Gönderen</th>
+                <th>Mesaj</th>
+                <th>Tarih</th>
+            </tr>
+        {% for message in conversation_about_this_task %}
+            
+            <tr>
+                <td>{{message.sender_db}}</td>
+                <td>{{message.text_db}}</td>
+                <td>{{message.date_of_sending_db}}</td>
+            </tr>    
+        {% endfor%}
+    </table>
+
+
+
+    <form method="POST", id="myform" enctype="multipart/form-data">
+        {{form.hidden_tag()}}
+        
+        <table style="width:100%", id="mytable">
+        <tr><td>{{form.message.label(class="form-label")}} </td> </tr>
+        <tr><td>{{form.message(class="form-control")}} </td> </tr>
+        </table>
+        <br/>
+        {{form.submit(class="btn btn-outline-primary", style="width:70px; height:30px; font-size:10pt; margin: 0px 0px 0px 10px")}}
+    </form>
+
+</div>
+
+</div>
+
+{%endblock%}

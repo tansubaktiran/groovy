@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='routine_tasks.css') }}">
+    <title>Rutin Görevler</title>
+    <style>
+        <style>
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+
+        @media screen and (max-width: 768px) {
+          #mydiv {
+          padding:5%;
+          display: none;
+                }
+
+        #mydiv2 {
+          padding:5%;
+  
+                }
+        .larger_table {
+          display: none;
+        }
+        
+
+        table tr:first-child tr {
+        border-top: 20px solid red; /* You can adjust the border width and color */
+        /* Add any other styling you want for the top row here */
+        }
+
+        .fit_table {
+        width: 400px;
+        max-width: 768px; /* Adjust the value as needed */
+        margin: 0 auto;
+        
+        }
+        .small_table{
+        max-width: 100%;
+        width: 350px; /* Allow the table to adapt to the container */
+        font-size:small
+        }
+
+
+      }
+
+
+@media screen and (min-width: 769px) {
+  
+  
+#mydiv {
+  padding:5%;
+  
+}
+#mydiv2 {
+  padding:5%;
+  display: none;
+}
+.larger_table {
+  padding: 1%;}
+
+.fit_table {
+  display: none;
+        }
+
+}
+    </style>
+    </style>
+</head>
+<body>
+    {% extends "base2.html" %}
+
+    {% block content %}
+    <div class="main_section">
+        <div class="main_content_box">
+            <div class="main_content_type1_container">
+                <div class="main_content_type1">
+                    <div class="tasks_ahead_text">
+                        
+                        <p style="font-size: 22px;">Rutin Görevler</p>
+                        
+                            <div class="larger_table">
+                                <h4>{{ task_to_be_sent_to_calendar.id }} No'lu Görevi Takvimde İşaretleyin...</h4> 
+                              
+                                <form id="datetimeForm" action="/submit_datetime" method="post">
+                                  {{ form.hidden_tag() }}
+                                  <input type="hidden" id="taskId" name="taskId" value="{{ task_to_be_sent_to_calendar.id }}">
+                                  <label for="datetimeInput">Tarih ve Saat Seçin:</label>
+                                  <input type="datetime-local" id="datetimeInput" name="datetimeInput" required />
+                                  <button type="submit">Kaydet</button>
+                              </form>
+                            </div>
+                        
+                              
+                            <div class="fit_table">
+                              <br><br>    <h4>Assign a Date and Time to Task No : {{ task_to_be_sent_to_calendar.id }}</h4> 
+                                
+                                <form id="datetimeForm" action="/submit_datetime" method="post">
+                                  {{ form.hidden_tag() }}
+                                  <input type="hidden" id="taskId" name="taskId" value="{{ task_to_be_sent_to_calendar.id }}">
+                                  <label for="datetimeInput">Select Date and Time:</label>
+                                  <input type="datetime-local" id="datetimeInput" name="datetimeInput" required />
+                                  <button type="submit">Save</button>
+                                </form>
+                            
+                            </div>  
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    {% endblock %}
+</body>
+</html>

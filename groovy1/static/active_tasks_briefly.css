@@ -1,0 +1,208 @@
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: auto;
+  }
+  
+  td, th {
+    border: 1px solid #ed0c0c;
+    text-align: left;
+    padding: 3px;
+    width: auto;
+  }
+  
+  form{
+    width: 94vw;
+  }
+  
+  
+  @media screen and (max-width: 768px) {
+            #mydiv {
+            padding:5%;
+            display: none;
+                  }
+  
+          #mydiv2 {
+            padding:5%;
+    
+                  }
+          .larger_table {
+            display: none;
+          }
+          
+  
+          table tr:first-child tr {
+          border-top: 20px solid red; /* You can adjust the border width and color */
+          /* Add any other styling you want for the top row here */
+          }
+  
+          .fit_table {
+          width: 400px;
+          max-width: 768px; /* Adjust the value as needed */
+          margin: 0 auto;
+          
+          }
+          .small_table{
+          max-width: 100%;
+          width: 350px; /* Allow the table to adapt to the container */
+          font-size:small
+          }
+  
+          .small_screen_active_tasks{
+            display: flex;
+            padding: 5px;
+            font-size: 8pt;
+            height: 80vh;
+            width: 92vw;}
+
+          .small_screen_other_tasks{
+            display: flex;
+            padding: 5px;
+            font-size: 8pt;
+            justify-items: center;
+            height: 80vh;            
+            width: auto;}
+        
+      .urgent_logo{
+  
+        width: 30px;
+      }
+      .save_button {
+      background-color: #e85d04;
+      border: none;
+      color: rgb(255, 255, 255);
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 14px;
+      border-radius: 8px;
+      height: 35px;
+      line-height: auto; /* Center the text vertically */
+      margin: 0px 0px 0px 0px;
+      width: 35px;}
+      
+      a img {
+    display: block; /* Ensures the image is displayed as a block element */
+    border: none; /* Removes any border around the image */
+  }
+  
+  a:hover img {
+    opacity: 0.8; /* Example hover effect */
+    transition: opacity 0.3s; /* Smooth transition effect */
+  }
+  
+  .other_tasks_pc_screen{
+
+    display : none;
+    margin: 15px 40px;
+    height: 80vh;
+  }
+  
+  .task-toggle-buttons{
+    margin: 0px 20px;
+
+  }
+  .toggle_button{
+
+    background-color: orange;
+    border: none;
+    color: rgb(255, 255, 255);
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 10px;
+    border-radius: 8px;
+    height: 40px;
+    line-height: auto; /* Center the text vertically */
+    margin: 0px 20px 0px 0px;
+    width: 90px;
+    }
+  
+  
+  
+  }
+  
+  
+  @media screen and (min-width: 769px) {
+    form{
+    width: auto;
+  }
+    
+  #mydiv {
+    padding:5%;
+    
+  }
+  #mydiv2 {
+    padding:5%;
+    display: none;
+  }
+  .larger_table {
+    padding: 1%;}
+  
+  .fit_table {
+    display: none;
+          }
+  
+  
+  
+  .brief_tasks_headers{
+    margin: 25px;
+  }
+  
+  .brief_tasks_section{
+    margin: 0px;
+    height: 80vh;
+    background-image: url('/static/city_and_sea.jpg');
+    background-size: cover;
+    background-position: right;
+  }
+  .small_screen_active_tasks{
+  
+    display: none;
+  }
+  
+
+  .small_screen_other_tasks{
+    display: none;
+    padding: 15px;
+    font-size: 8pt;
+    width: auto;}
+
+  .other_tasks_pc_screen{
+
+    background-image: url('/static/city_and_sea.jpg');
+    background-size: cover;
+    background-position: right;
+    display : block;
+    align-items: center;
+    margin: 0px;
+    height: 80vh;
+  }
+  .urgent_logo{
+  
+    width: 40px;
+  }
+
+  .task-toggle-buttons{
+    margin: 15px 40px;
+
+  }
+  .toggle_button{
+
+  background-color: orange;
+  border: none;
+  color: rgb(255, 255, 255);
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+  border-radius: 8px;
+  height: 50px;
+  line-height: auto; /* Center the text vertically */
+  margin: 0px 20px 0px 0px;
+  width: 120px;
+  }
+
+  }
+
+  

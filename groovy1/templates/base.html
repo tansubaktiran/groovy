@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+    <title>Taskify Project - 2023</title>
+  </head>
+
+<style>
+.main_content_part {
+  margin-top: 20%;
+  margin-left: 0%;
+  margin-right: 0%;
+}
+
+.mymenutext {
+    
+  color: rgb(99, 141, 231);
+  font-size: 20px;
+    
+}
+#mydiv {
+  padding:5%;
+}
+
+
+
+table.dataframe, .dataframe th, .dataframe td {
+  border:none ;
+  border-left: 0.2cm;
+  border-bottom: 1px solid orange;
+  border-collapse: collapse;
+  text-align:left;
+  padding: 10px;
+  margin-bottom: 40px;
+  font-size: 0.9em;
+}
+
+@media screen and (max-width: 768px) {
+
+.error {
+    color: red;
+    border: 2px solid red;
+    margin-top:5%;
+}
+.success {
+    color: limegreen;
+    border: 2px solid limegreen;
+    margin-top:5%;
+    
+}
+
+  .external_button_container {
+  display: flex;
+  justify-content: center;
+  position: fixed;
+  top: 12%;
+  left: 0;
+  right: 0;
+  text-align: center;
+}
+
+.external_button_right {
+  background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  display: flex;
+  width: 80px ;
+  height: 80px;
+  padding: 3px 3px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 12px;
+  margin: 3px;
+}
+
+.flash-messages {
+
+  margin-top: 11%;
+}
+
+}
+
+@media screen and (min-width: 769px) {
+
+.flash-messages {
+
+margin-top: 52px;
+}
+
+.external_button_container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 10%;
+
+}
+
+.external_button_right {
+  background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  display: flex;
+  width: 160px ;
+  height: 80px;
+  padding: 3px 3px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 3px;
+}
+}
+
+
+
+</style>
+  
+
+<body>
+  
+  {% include "navbar.html" %}
+  
+  
+  {% if current_user.is_authenticated %}
+  
+  
+  
+  {% endif %}
+
+
+  <div class="flash-messages">
+
+      {% for message in get_flashed_messages() %}
+      <div class="alert alert-success" role="alert">{{message}}</div>
+      {% endfor %}
+  </div>
+        
+        
+        
+        
+        <div class="main_content_part">
+
+          {%block content%}
+            
+          {%endblock%}
+        </div>
+        
+    
+        
+
+        <!-- Optional JavaScript; choose one of the two! -->
+    
+        <!-- Option 1: Bootstrap Bundle with Popper -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    
+        <!-- Option 2: Separate Popper and Bootstrap JS -->
+        <!--
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+        -->
+      </body>
+
+    
+
+    </html>

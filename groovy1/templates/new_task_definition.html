@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<head>
+    <title>Yeni Görev Akışı Tanımlama</title>
+
+
+
+    <style>
+    
+    #myform {
+        width: 80%;
+    }
+    #mytable {
+        border-spacing: 0px;
+    }
+    
+    .error {
+    color: red;
+    border: 2px solid red;
+}
+    .success {
+    color: limegreen;
+    border: 2px solid limegreen;
+}
+    
+    .task_definition{
+
+        margin: 25px
+    }
+    
+    </style>
+</head>
+{% extends "base.html"%}
+
+
+{%block content%}
+
+
+<div class="task_definition">
+
+    <p><h4>Yeni İş Akışı Tanımlama</h4></p>
+
+
+    {% for message in get_flashed_messages() %}
+    <div class="alert alert-success" role="alert">{{message}}</div>
+    {% endfor %}
+
+
+
+    <form method="POST", id="myform" enctype="multipart/form-data">
+        {{form.hidden_tag()}}
+        
+        <table style="width:100%", id="mytable">
+        
+        <tr><td>{{form.task_type_name.label(class="form-label")}} </td> </tr>
+        <tr><td>{{form.task_type_name(class="form-control")}} </td> </tr>
+
+        <tr><td>{{form.task_first_step_name.label(class="form-label")}} </td> </tr>
+        <tr><td>{{form.task_first_step_name(class="form-control")}} </td> </tr>
+        
+        </table>
+        <br/>
+        {{form.submit(class="btn btn-outline-primary")}}
+    </form>
+
+
+    {% if task_type_name %}
+        {{ task_type_name }}
+    {% endif  %}
+
+
+    <form method="POST", id="myform" enctype="multipart/form-data">
+        {{form.hidden_tag()}}
+        
+        <table style="width:100%", id="mytable">
+        
+        <tr><td>{{form2.new_task_process_step.label(class="form-label")}} </td> </tr>
+        <tr><td>{{form2.new_task_process_step(class="form-control")}} </td> </tr>
+
+        </table>
+        <br/>
+        {{form2.submit(class="btn btn-outline-primary")}}
+    </form>
+
+    {% if new_task_step %}
+        {{ new_task_step }}
+    {% endif  %}
+
+</div>
+
+
+
+{%endblock%}

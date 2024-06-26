@@ -1,0 +1,68 @@
+<head>
+    <style>
+    
+    #myform {
+        width: 80%;
+    }
+    #mytable {
+        border-spacing: 0px;
+    }
+    
+    .error {
+    color: red;
+    border: 2px solid red;
+}
+    .success {
+    color: limegreen;
+    border: 2px solid limegreen;
+}
+    
+    </style>
+</head>
+{% extends "base.html"%}
+
+
+{%block content%}
+
+<br/><br/><br/>
+<p><h3> StorBridge Online Case Approval System </h3></p>
+<p><h4> Admin Panel </h4></p>
+
+
+{% for message in get_flashed_messages() %}
+<div class="alert alert-success" role="alert">{{message}}</div>
+{% endfor %}
+
+name email country password
+    <br/>
+    <form method="POST", id="myform" enctype="multipart/form-data">
+        {{form.hidden_tag()}}
+        
+        <table style="width:100%", id="mytable">
+        
+        <tr><td>{{form.name.label(class="form-label")}} </td> </tr>
+        <tr><td>{{form.name(class="form-control")}} </td> </tr>
+
+        <tr><td>{{form.email.label(class="form-label")}} </td> </tr>
+        <tr><td>{{form.email(class="form-control")}} </td> </tr>
+
+        <tr><td>{{form.country.label(class="form-label")}} </td> </tr>
+        <tr><td>{{form.country(class="form-control")}} </td> </tr>
+        
+        <tr><td>{{form.password.label(class="form-label")}} </td> </tr>
+        <tr><td>{{form.password(class="form-control")}} </td> </tr>
+        
+        </table>
+        <br/>
+        {{form.submit(class="btn btn-outline-primary")}}
+    </form>
+
+
+
+
+
+
+<br/><br/>
+<p><b>Storbridge Global</b> / Version - 001 </p>
+
+{%endblock%}

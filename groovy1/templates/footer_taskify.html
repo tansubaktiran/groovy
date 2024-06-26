@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<head>
+<style>
+
+body{
+
+    margin: 0px;
+    
+}
+
+@media screen and (max-width: 768px) {
+
+.footer_mini{
+    display: flex;
+    background-color: #ededed;
+    height: 100px;
+    align-items: flex-end;
+    justify-content:flex-end;
+    width: auto;
+    }
+
+.footer{
+    display: none;
+    background-color: #ededed;
+    height: auto;
+    align-items: center;
+    justify-content:space-between;
+    width: auto;
+
+}
+.footer_image{
+    height: 90px; /* Adjust height as needed */
+    width: auto; /* Maintain aspect ratio */
+
+}
+.footer_links{
+    display: flex;
+    width: 350px;
+    justify-content: flex-end;
+    padding: 0px 35px 0px 0px;
+}
+.button_footer {
+    background-color: #e85d04;
+    border: none;
+    color: rgb(255, 255, 255);
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    border-radius: 8px;
+    height: 30px;
+    line-height: auto; /* Center the text vertically */
+    margin: 0px 20px 0px 0px;
+    width: 90px;}
+
+    .button_mini_footer {
+    background-color: #0077b6;
+    border: none;
+    color: rgb(255, 255, 255);
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 7px;
+    border-radius: 2px;
+    height: 60px;
+    line-height: auto; /* Center the text vertically */
+    margin: 0px 20px 0px 0px;
+    width: 40px;}
+
+    .login_footer_mini {
+    display: flex;
+    background-color: #ededed;
+    height: 100px;
+    align-items: center;
+    justify-content:flex-end;
+    width: auto;
+}
+
+}
+
+
+
+@media screen and (min-width: 769px) {
+
+.footer_mini{
+    display: none;
+    background-color: #ededed;
+    height: 100px;
+    align-items: center;
+    justify-content:space-between;
+    width: auto;
+
+}
+
+
+.footer{
+    display: flex;
+    background-color: white;
+    height: 80px;
+    align-items: center;
+    justify-content:space-between;
+    width: auto;
+    margin: 10px;
+
+}
+.footer_image{
+    height: 30px; /* Adjust height as needed */
+    width: auto; /* Maintain aspect ratio */
+    padding: 0 15px;
+
+}
+.footer_links{
+    display: flex;
+    width: 350px;
+    justify-content: flex-end;
+    padding: 0px 35px 0px 0px;
+}
+.button_footer {
+    background-color: #0077b6;
+    border: none;
+    color: rgb(255, 255, 255);
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    border-radius: 8px;
+    height: 30px;
+    line-height: auto; /* Center the text vertically */
+    margin: 0px 20px 0px 0px;
+    width: 90px;}
+
+.login_footer_mini {
+    display: none;
+    
+}
+
+
+}
+
+
+
+
+
+</style>
+    
+</head>
+
+<body>
+    <div class="footer_mini">
+        {% if current_user.is_authenticated %}
+            
+            
+            
+            <a href="{{ url_for('logout') }}">
+                <button class="button_mini_footer" style="background-color: red;">Çıkış</button>
+            </a>
+            
+            {% else %}
+            
+        
+            
+            <div class="login_footer_mini" style="display: flex; justify-content: flex-end;">
+                <a href="{{ url_for('login') }}">
+                    <button class="button_mini_footer" style="background-color: #036f23;">Giriş</button>
+                </a>
+            </div>
+    
+            {% endif %}
+
+        </div>
+    
+         
+
+    <div class="footer">
+        <img src="{{ url_for('static', filename='taskify_logo_4w.png') }}" alt="Taskify Logo" class="footer_image">
+    
+        <div class="footer_links"> 
+            {% if current_user.is_authenticated %}
+            
+                        
+
+            <a href="{{ url_for('logout') }}">
+                <button class="button_footer" style="background-color: red;">Çıkış</button>
+            </a>
+            
+            {% else%}
+            
+
+            <a href="{{ url_for('login') }}">
+                <button class="button_footer" style="background-color: #036f23;">Giriş</button>
+            </a>
+            {% endif %}
+        
+        </div>
+    
+
+        
+    </div>
+
+</body>
+</html>

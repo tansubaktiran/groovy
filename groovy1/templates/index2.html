@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<head>
+<title>Taskify Ana Sayfa</title>    
+<link rel="stylesheet" href="{{ url_for('static', filename='index2.css') }}">
+<style>
+
+
+</style>
+    
+</head>
+
+<body>
+{% extends "base2.html"%}
+
+{%block content%}
+
+
+<!-- </div> did not delete this div on purpose; to indicate a small problem in hiding the main content page when messages div is not closed on base2.html template -->
+
+
+
+<div class="main_section fade-in">
+    
+    
+    {% if current_user.is_authenticated %}
+    <div class="main_content_box">
+        <div class="main_content_type1_container">
+            <div class="main_content_type1">
+                <div class="total_active_tasks_container">
+                    <div class="total_active_tasks_title"> {{today}}</div>        
+                </div>
+            </div>
+            
+            <div class="main_content_type1b">
+                <div class="total_active_tasks_container">
+                        <div class="total_active_tasks_title"> Toplam Aktif Görev Sayısı</div>
+                        <div class="total_active_tasks_data"> {{number_of_active_tasks}}</div>
+                </div>
+            </div>
+            <div class="main_content_type1c">
+                <div class="total_active_tasks_container">
+                        <div class="total_active_tasks_title"> Toplam Takvime İşlenmiş Görev Sayısı</div>
+                        <div class="total_active_tasks_data"> {{tasks_in_calendar}}</div>
+                </div>
+            </div>
+        
+        </div>
+        
+    
+        <div class="main_content_type2">
+            <div class="tasks_ahead_text">
+            
+            <p style="font-size: 22px;">Yakınlardaki Görevler</p>
+                <table>
+                <th>Görev</th>
+                <th>Tarih & Saat</th>
+                {% for task in tasks_within_one_month %}
+                <tr>
+                    <td>{{ task.title_db}}</td>
+                    <td>{{ task.date_time_db}}</td>
+                </tr>    
+                {% endfor %}    
+            </table>
+                
+            </div>
+        </div>
+    
+        <div class="main_content_type3">
+            <div class="tasks_ahead_text">
+                
+                <p style="font-size: 22px;">Aktif Görevler</p>
+
+            <table>
+                <th>Görev</th>
+                <th>Durum</th>
+                {% for task in active_tasks %}
+                <tr>
+                    <td>{{ task.task_name_db}}</td>
+                    <td>{{ task.task_status_db}}</td>
+                </tr>    
+                {% endfor %}    
+            </table>
+            
+            </div>
+        
+        </div>
+    
+        <div class="main_content_type4">
+            <div class="tasks_ahead_text">
+                
+                <p style="font-size: 22px;">Rutin Görevler</p>
+                
+
+            <table>
+                <th>Görev</th>
+                <th>Durum</th>
+                <th>Son Tarihi</th>
+                {% for task in all_routine_tasks %}
+                <tr>
+                    <td>{{ task.task_name_db}}</td>
+                    <td>{{ task.task_status_db}}</td>
+                    <td>{{ task.date_due_db}}</td>
+                </tr>    
+                {% endfor %}    
+            </table>
+            
+            </div>
+        
+        </div>
+    
+    
+    </div>
+    {% else %}
+
+    
+
+        <div class="empty_index_section">
+
+            <div class="gradient-text">
+                taskify
+            </div>
+            
+            <div class="gradient-text2">
+                task management simplified
+            </div>
+
+        </div>
+
+        
+    
+
+
+    {% endif %}
+    
+</div>
+
+
+
+
+
+{%endblock%}
+
+
+
+</body>
+</html>

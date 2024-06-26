@@ -1,0 +1,32 @@
+body{
+    margin: 0px;
+    
+}
+
+.flash-message {
+    position: fixed;
+    top: 30%; /* Position at the vertical center */
+    left: 50%; /* Position at the horizontal center */
+    transform: translate(-50%, -50%); /* Move the message box by half of its width and height to center it */
+    padding: 10px;
+    background-color: orangered;
+    border: 1px solid white;
+    border-radius: 5px;
+    font-size: 16px;
+    z-index: 9999;
+    color: white;
+}
+
+/* animations.css */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.fade-in {
+    animation: fadeIn 1s ease-in-out;
+}

@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='active_tasks_briefly.css') }}">
+    <title>Görevler - Özet Versiyon</title>
+    <style>
+        .hidden {
+            display: none;
+        }
+
+        .task-toggle-buttons {
+            margin-bottom: 20px;
+        }
+
+        .task-toggle-buttons button {
+            margin-right: 10px;
+        }
+
+        .active {
+            background-color: green;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    {% extends "base2.html" %}
+
+    {% block content %}
+
+    <br>
+
+    {% if current_user.is_authenticated %}
+    <div class="brief_tasks_headers">
+        <h5 style="color: orangered; padding-left: 15px;">Aktif Görevlerim - Özet Tablo</h5>
+    </div>
+
+    <div class="task-toggle-buttons">
+        <button id="myTasksButton" class="toggle_button active" onclick="showMyTasks()">Görevlerim</button>
+        <button id="otherTasksButton" class="toggle_button" onclick="showOtherTasks()">Diğer Görevler</button>
+    </div>
+
+    <div id="brief_tasks_section" class="brief_tasks_section">
+        <div class="larger_table">
+            <form method="POST" action="/see_my_tasks_briefly">
+                <table class="table" style="background-color: rgba(255, 255, 255, 0.85);">
+                    <tr>
+                        <th>Görev</th>
+                        <th>Durum</th>
+                        <th>Aciliyet</th>
+                        <th style="max-width: 50px;">Durum Değiştir</th>
+                        <th>-</th>
+                        <th>Detaylar</th>
+                        <th>Kabul Et</th>
+                        <th>Arşivle</th>
+                        <th>Takvime At</th>
+                    </tr>
+                    {% for task, list in zipped_data %}
+                    <tr>
+                        <td>{{task.task_name_db}}</td>
+                        <td>{{task.task_status_db}}</td>
+                        {% if task.urgent_or_not_db=="Urgent" %}
+                        <td style="width:7%; color: red;">{{task.urgent_or_not_db}}</td>
+                        {% else %}
+                        <td style="width:7%; color: black;">{{task.urgent_or_not_db}}</td>
+                        {% endif %}
+                        <td style="max-width: 150px;">
+                            <select class="form-select" id="dropdown" name="selected_options[]">
+                                <option value="">Select an option</option>
+                                {% for option in list %}
+                                <option value="{{option}}">{{option}}</option>
+                                {% endfor %}
+                            </select>
+                        </td>
+                        <td>
+                            <button type="submit" class="btn btn-info" style="background-color: orange; font-size: small; color: white;">Kaydet</button>
+                        </td>
+                        <td style="width:8%"> <a href="{{url_for('see_one_task',id=task.id)}}">Detaylar</a></td>
+                        {% if task.acceptance_required_or_not_db=="Acceptance Required" and task.task_status_db!="New" %}
+                        <td>
+                            <a href="{{url_for('accept_one_case',id=task.id)}}" button type="button" class="btn btn-info" style="background-color: greenyellow; font-size: small; color: black;">Kabul Et</a>
+                        </td>
+                        {% else %}
+                        <td>-</td>
+                        {% endif %}
+                        <td style="width:8%"> <a href="{{url_for('archive_one_case',id=task.id)}}">Arşivle</a></td>
+                        <td style="width:8%"> <a href="{{url_for('one_task_to_calendar',id=task.id)}}">Takvime At</a></td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </form>
+        </div>
+    </div>
+
+    <div id="other_tasks_pc_screen" class="other_tasks_pc_screen hidden">
+        <table class="table" style="background-color: rgba(255, 255, 255, 0.85); margin-left: 10px; width: 90vw;">
+            <tr>
+                <th>Görev</th>
+                <th>Görevli</th>
+                <th>Aciliyet</th>
+                <th>Durum</th>
+                <th>Sil</th>
+                <th>Arşivle</th>
+                <th>Takvime At</th>
+            </tr>
+            {% for other_task in other_tasks %}
+            <tr>
+                <td style="width: 70px;">
+                    <a href="{{url_for('see_one_task',id=other_task.id)}}" style="text-decoration: none; color: black;">{{other_task.task_name_db}}</a>
+                </td>
+                <td style="width: 100px;">{{ other_task.subordinate_email_db }}</td>
+                
+                {% if other_task.urgent_or_not_db == "Urgent" %}
+                <td style="width: 45px;"> <img class="urgent_logo" src="{{ url_for('static', filename='chronometer.png') }}" alt="Icon"> </td>
+                {% else %}
+                <td style="width: 45px;"><img class="urgent_logo" src="{{ url_for('static', filename='slowpace.png') }}" alt="Icon"></td>
+                {% endif %}
+                {% if other_task.task_status_db == "New" %}
+                <td style="color: orangered; width: 40px;">Yeni</td>
+                {% else %}
+                <td style="width: 40px;">{{ other_task.task_status_db }}</td>
+                {% endif %}
+                <td style="width:8%"> <a href="{{url_for('delete_task',id=other_task.id)}}">Sil</a></td>
+                <td style="width:8%"> <a href="{{url_for('archive_one_case',id=other_task.id)}}">Arşivle</a></td>
+                <td style="width:8%"> <a href="{{url_for('one_task_to_calendar',id=other_task.id)}}">Takvime At</a></td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+    <div id="small_screen_active_tasks" class="small_screen_active_tasks" >
+        <form method="POST" action="/see_my_tasks_briefly">
+            <table style="width: 94vw; background-color: rgba(255, 255, 255, 0.85);" >
+                {% for task, list in zipped_data2 %}
+                <tr>
+                    <td style="width: 100px;">
+                        <a href="{{url_for('see_one_task',id=task.id)}}" style="text-decoration: none; color: black;">{{task.task_name_db}}</a>
+                    </td>
+                    {% if task.urgent_or_not_db == "Urgent" %}
+                    <td style="width: 45px;"> <img class="urgent_logo" src="{{ url_for('static', filename='chronometer.png') }}" alt="Icon"> </td>
+                    {% else %}
+                    <td style="width: 45px;"><img class="urgent_logo" src="{{ url_for('static', filename='slowpace.png') }}" alt="Icon"></td>
+                    {% endif %}
+                    {% if task.task_status_db == "New" %}
+                    <td style="color: orangered; width: 40px;">Yeni</td>
+                    {% else %}
+                    <td style="width: 40px;">{{ task.task_status_db }}</td>
+                    {% endif %}
+                    <td style="background-color: rgba(211, 211, 211, 0.192);width: 55px;">
+                        <select class="form-select" id="dropdown" name="selected_options[]" style="width: 55px; font-size: 9pt;">
+                            <option value="">Seçiniz</option>
+                            {% for option in list %}
+                            <option value="{{option}}">{{option}}</option>
+                            {% endfor %}
+                        </select>
+                    </td>
+                    <td >
+                        <input type="image" src="static/save_icon.png" alt="Save" class="save_button" style="width: 35px; height: auto;">
+                    </td>
+                    {% if task.acceptance_required_or_not_db == "Acceptance Required" and task.task_status_db != "New" %}
+                    <td>
+                        <a href="{{ url_for('accept_one_case', id=task.id) }}" style="display: inline-block;">
+                            <img src="{{ url_for('static', filename='accept_icon.png') }}" alt="Accept" style="width: 35px; height: auto;">
+                        </a>
+                    </td>
+                    {% else %}
+                    <td>-</td>
+                    {% endif %}
+                    
+                    
+                    
+                    
+                    <td>
+                        <a href="{{ url_for('accept_one_case', id=task.id) }}" style="display: inline-block;">
+                        <img src="{{ url_for('static', filename='archive_icon.png') }}" alt="Accept" style="width: 35px; height: auto;">
+                        </td>
+                        
+                        
+                        
+                        <td>
+                            <a href="{{ url_for('one_task_to_calendar', id=task.id) }}" style="display: inline-block;">
+                                <img src="{{ url_for('static', filename='calendar_icon.png') }}" alt="Accept" style="width: 35px; height: auto;">
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </form>
+        </div>
+    
+        <div id="small_screen_other_tasks" class="small_screen_other_tasks hidden"  >
+          
+          <form method="POST" action="/see_my_tasks_briefly">
+              <table style="background-color: rgba(255, 255, 255, 0.85);">
+                
+                {% for other_task in other_tasks %}
+                  <tr>
+                      <td style="width: 100px;">
+                          <a href="{{url_for('see_one_task',id=other_task.id)}}" style="text-decoration: none; color: black;">{{other_task.task_name_db}} Test</a>
+                      </td>
+                      {% if other_task.urgent_or_not_db == "Urgent" %}
+                      <td style="width: 45px;"> <img class="urgent_logo" src="{{ url_for('static', filename='chronometer.png') }}" alt="Icon"> </td>
+                      {% else %}
+                      <td style="width: 45px;"><img class="urgent_logo" src="{{ url_for('static', filename='slowpace.png') }}" alt="Icon"></td>
+                      {% endif %}
+                      
+                      {% if other_task.task_status_db == "New" %}
+                        <td style="color: orangered; width: 40px;">Yeni</td>
+                        {% else %}
+                        <td style="width: 40px;">{{ other_task.task_status_db }}</td>
+                      {% endif %}
+                      <td>
+                        <a href="{{ url_for('delete_task', id=other_task.id) }}" style="display: inline-block;">
+                            <img src="{{ url_for('static', filename='delete_icon.png') }}" alt="Delete" style="width: 45px; height: auto;">
+                        </a>
+                    </td>
+                    <td>
+                      <a href="{{ url_for('archive_one_case', id=other_task.id) }}" style="display: inline-block;">
+                      <img src="{{ url_for('static', filename='archive_icon.png') }}" alt="Archive" style="width: 45px; height: auto;">
+                    </td>
+                    
+                    <td>
+                      <a href="{{ url_for('one_task_to_calendar', id=other_task.id) }}" style="display: inline-block;">
+                      <img src="{{ url_for('static', filename='calendar_icon.png') }}" alt="Accept" style="width: 45px; height: auto;">
+                    </td>
+                    
+                    </a>
+                        
+                  
+                    </tr>
+                  {% endfor %}
+              </table>
+          </form>
+      </div>
+
+    <script>
+        function showMyTasks() {
+            const briefTasksSection = document.getElementById('brief_tasks_section');
+            const otherTasksPcScreen = document.getElementById('other_tasks_pc_screen');
+            const smallScreenActiveTasks = document.getElementById('small_screen_active_tasks');
+            const smallScreenOtherTasks = document.getElementById('small_screen_other_tasks');
+
+            if (briefTasksSection) {
+                briefTasksSection.classList.remove('hidden');
+            }
+
+            if (otherTasksPcScreen) {
+                otherTasksPcScreen.classList.add('hidden');
+            }
+        
+            if (smallScreenActiveTasks) {
+                smallScreenActiveTasks.classList.remove('hidden');
+            }
+            
+            if (smallScreenOtherTasks) {
+                smallScreenOtherTasks.classList.add('hidden');
+            }
+
+            document.getElementById('myTasksButton').classList.add('active');
+            document.getElementById('otherTasksButton').classList.remove('active');
+        }
+
+        function showOtherTasks() {
+            const briefTasksSection = document.getElementById('brief_tasks_section');
+            const otherTasksPcScreen = document.getElementById('other_tasks_pc_screen');
+            const smallScreenActiveTasks = document.getElementById('small_screen_active_tasks');
+            const smallScreenOtherTasks = document.getElementById('small_screen_other_tasks');
+
+            if (briefTasksSection) {
+                briefTasksSection.classList.add('hidden');
+            }
+
+            if (otherTasksPcScreen) {
+                otherTasksPcScreen.classList.remove('hidden');
+            }
+        
+            if (smallScreenActiveTasks) {
+                smallScreenActiveTasks.classList.add('hidden');
+            }
+            
+            if (smallScreenOtherTasks) {
+                smallScreenOtherTasks.classList.remove('hidden');
+            }
+
+            document.getElementById('myTasksButton').classList.remove('active');
+            document.getElementById('otherTasksButton').classList.add('active');
+        }
+    </script>
+
+    {% endif %}
+    {% endblock %}
+</body>
+
+</html>
